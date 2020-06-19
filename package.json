@@ -1,0 +1,22 @@
+{
+  "name": "2up",
+  "version": "0.0.1",
+  "description": "2up Backup CLI",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "2up": "./bin/2up.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sendanor/2up.git"
+  },
+  "author": "Jaakko Heusala <jheusala@iki.fi>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sendanor/2up/issues"
+  },
+  "homepage": "https://github.com/sendanor/2up#readme"
+}
