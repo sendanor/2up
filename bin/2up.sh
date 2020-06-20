@@ -176,7 +176,15 @@ fi
 if test "x$NOR_2UP_USER" = x; then
   echo "ERROR: No user configured." >&2
   echo "" >&2
-  echo "  Use: 2up config user=bob" >&2
+  echo "  Example: 2up config user=bob" >&2
+  echo "" >&2
+  exit 1
+fi
+
+if test "x$NOR_2UP_SERVER" = x; then
+  echo "ERROR: No server configured." >&2
+  echo "" >&2
+  echo "  Example: 2up config server=2up.fi" >&2
   echo "" >&2
   exit 1
 fi
@@ -187,14 +195,19 @@ case "$ACTION" in
   get)
 
     echo "$ARGS"|tr ' ' '\n'|while read ARG; do
-      if test -e "$ARG"; then
-        echo "ERROR: File exists already: $ARG" >&2
+
+      LOCAL_FILE="$(echo "x$ARG"|"$SED" -e 's/^x//' -e 's/@[^@]*$//')"
+
+      if test -e "$LOCAL_FILE"; then
+        echo "ERROR: File exists already: $LOCAL_FILE" >&2
         exit 1
       fi
+
     done
 
     echo "$ARGS"|tr ' ' '\n'|while read ARG; do
-      "$SSH" "$NOR_2UP_USER"@"$NOR_2UP_SERVER" get "$ARG" > "$ARG"
+      LOCAL_FILE="$(echo "x$ARG"|"$SED" -e 's/^x//' -e 's/@[^@]*$//')"
+      "$SSH" "$NOR_2UP_USER"@"$NOR_2UP_SERVER" get "$ARG" > "$LOCAL_FILE"
     done
 
   ;;
